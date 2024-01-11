@@ -1,32 +1,31 @@
-// Enhancements for script.js
-
-// Responsive Hamburger Menu
-function toggleMenu() {
-  const nav = document.querySelector('nav ul');
-  nav.classList.toggle('active');
-}
-
-document.querySelector('.menu-toggle').addEventListener('click', toggleMenu);
-
-// Smooth Scrolling
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-      e.preventDefault();
-      document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
+document.addEventListener("DOMContentLoaded", function() {
+  // Smooth Scroll for Navigation Links
+  document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          const targetSection = document.querySelector(targetId);
+          targetSection.scrollIntoView({ behavior: 'smooth' });
       });
   });
+
+  // Dynamic Skills Section
+  const skills = document.querySelectorAll('.skill');
+  skills.forEach(skill => {
+      skill.addEventListener('mouseover', function() {
+          this.classList.add('hovered');
+          // Additional animation or dynamic content can be added here
+      });
+      skill.addEventListener('mouseout', function() {
+          this.classList.remove('hovered');
+      });
+  });
+
+  // Contact Form Submission Handling
+  const contactForm = document.querySelector('#contact form');
+  contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Basic validation or form data processing here
+      alert('Thank you for your message!');
+  });
 });
-
-// Light/Dark Mode Toggle
-const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
-
-function switchTheme(e) {
-  if (e.target.checked) {
-      document.documentElement.setAttribute('data-theme', 'dark');
-  } else {
-      document.documentElement.setAttribute('data-theme', 'light');
-  }
-}
-
-toggleSwitch.addEventListener('change', switchTheme, false);
